@@ -10,8 +10,8 @@
     "gulp-webserver": "^0.9.1",
     "jshint-stylish": "^2.2.1",
     "lodash": "^4.17.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^15.6.0",
+    "react-dom": "^15.6.0",
     "reactify": "^1.1.1"
   }
 }
