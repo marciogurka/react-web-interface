@@ -1,0 +1,4 @@
+.fixed-action-btn.toolbar ul li .btn-search-order {
+    display: flex;
+    justify-content: center;
+}

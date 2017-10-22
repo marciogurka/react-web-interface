@@ -12,6 +12,7 @@ var MainInterface = React.createClass({
             aptBodyVisible: false,
             orderBy: 'first_name',
             orderDirection: 'asc',
+            queryText: '',
             myAppointments: []
         }
     }, //getInitialState function
@@ -59,14 +60,35 @@ var MainInterface = React.createClass({
         }) //setting state
     }, //reOrder function
 
+    searchApts: function(searchText){
+        this.setState({
+            queryText: searchText
+        }) //setting state
+    }, //searchApts function
+
     render: function () {
-        var filteredApts = this.state.myAppointments;
+        var filteredApts = [];
         var orderBy = this.state.orderBy;
         var orderDir = this.state.orderDirection;
+        var queryText = this.state.queryText;
+        var myAppointments = this.state.myAppointments;
+
+        myAppointments.forEach(function (item){
+           if(
+               (item.first_name.toLowerCase().indexOf(queryText) != -1) ||
+               (item.last_name.toLowerCase().indexOf(queryText) != -1) ||
+               (item.type.toLowerCase().indexOf(queryText) != -1) ||
+               (item.email.toLowerCase().indexOf(queryText) != -1) ||
+               (item.ip_address.toLowerCase().indexOf(queryText) != -1)
+           ) {
+               filteredApts.push(item);
+           }
+        });
+
         filteredApts = _.orderBy(filteredApts, function (item) {
-            console.log(item, orderBy);
             return item[orderBy].toLowerCase();
         }, orderDir); //ordering using lodash
+
         filteredApts = filteredApts.map(function (item, index) {
             return (
                 <AptList key = {index}
@@ -87,6 +109,7 @@ var MainInterface = React.createClass({
                     orderBy = { this.state.orderBy }
                     orderDirection = { this.state.orderDirection }
                     onReOrder = { this.reOrder }
+                    onSearch = { this.searchApts }
                 />
                 <ul className="collection" >
                     {filteredApts}
