@@ -1,8 +1,9 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     browserify = require('gulp-browserify'),
-    webserver = require('gulp-webserver');
+    webserver = require('gulp-webserver'),
+    cleanCSS = require('gulp-clean-css');
 
-var src = './src',
+let src = './src',
     app = './dist/app';
 
 gulp.task('js', function () {
@@ -22,12 +23,17 @@ gulp.task('html', function(){
 });
 
 gulp.task('css', function(){
-    gulp.src(app + '/css/*.css');
+    gulp.src(src + '/css/*.css')
+        .pipe(cleanCSS({debug: true}, function(details) {
+            console.log(details.name + ': ' + details.stats.originalSize);
+            console.log(details.name + ': ' + details.stats.minifiedSize);
+        }))
+        .pipe(gulp.dest(app + '/css'));
 });
 
 gulp.task('watch', function(){
     gulp.watch(src + '/js/**/*.js', ['js']);
-    gulp.watch(app + '/css/**/*.css', ['css']);
+    gulp.watch(src + '/css/**/*.css', ['css']);
     gulp.watch(app + '/**/*.html', ['html']);
 });
 
