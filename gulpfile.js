@@ -2,7 +2,8 @@ let gulp = require('gulp'),
     browserify = require('gulp-browserify'),
     webserver = require('gulp-webserver'),
     cleanCSS = require('gulp-clean-css'),
-    sourcemaps = require('gulp-sourcemaps');
+    sourcemaps = require('gulp-sourcemaps'),
+    uglify = require('gulp-uglify');
 
 let src = './src',
     app = './dist/app';
@@ -16,6 +17,9 @@ gulp.task('js', function () {
        .on('error', function (err) {
            console.error('Error! ', err.message);
        })
+       .pipe(sourcemaps.init())
+       .pipe(uglify())
+       .pipe(sourcemaps.write())
        .pipe(gulp.dest(app + '/js'));
 });
 
