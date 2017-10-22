@@ -25,7 +25,7 @@ var addAppointment = React.createClass({
         return (
             <div className="row">
                 <div className="col s12">
-                    <a className="waves-effect waves-light btn" onClick={ this.toggleAptDisplay }>
+                    <a className="waves-effect waves-red btn-flat" onClick={ this.toggleAptDisplay }>
                         Add Appointment<i className="material-icons left">plus_one</i>
                     </a>
                     <div style={displayAptBody}>
@@ -56,7 +56,7 @@ var addAppointment = React.createClass({
                                     <label htmlFor="ip">IP Address</label>
                                 </div>
                                 <div className="input-field col s6">
-                                    <button type="submit" className="waves-effect waves-light btn"><i className="material-icons left">save</i>save</button>
+                                    <button type="submit" className="waves-effect waves-light btn light-green darken-4"><i className="material-icons left">save</i>save</button>
                                 </div>
                             </div>
                         </form>
