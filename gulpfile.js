@@ -1,7 +1,8 @@
 let gulp = require('gulp'),
     browserify = require('gulp-browserify'),
     webserver = require('gulp-webserver'),
-    cleanCSS = require('gulp-clean-css');
+    cleanCSS = require('gulp-clean-css'),
+    sourcemaps = require('gulp-sourcemaps');
 
 let src = './src',
     app = './dist/app';
@@ -24,10 +25,9 @@ gulp.task('html', function(){
 
 gulp.task('css', function(){
     gulp.src(src + '/css/*.css')
-        .pipe(cleanCSS({debug: true}, function(details) {
-            console.log(details.name + ': ' + details.stats.originalSize);
-            console.log(details.name + ': ' + details.stats.minifiedSize);
-        }))
+        .pipe(sourcemaps.init())
+        .pipe(cleanCSS())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(app + '/css'));
 });
 
